@@ -15,6 +15,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.tags.Tag;
+import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.dto.TarefaAtualizarDTO;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.dto.TarefaCadastroDTO;
 
 @Entity
@@ -71,5 +72,12 @@ public class Tarefa {
 
 	public List<Tag> getTags() {
 		return tags;
+	}
+
+	public void atualizar(TarefaAtualizarDTO dados) {
+		this.titulo = dados.getTitulo();
+		this.descricao = dados.getDescricao();
+		this.dataHora = dados.getDataHora();
+		this.situacao = dados.getSituacao();
 	}
 }
