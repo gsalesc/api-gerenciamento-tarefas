@@ -29,7 +29,7 @@ public class TarefaCadastroDTO {
 	@NotNull
 	private Status situacao;
 	
-	private List<Tag> tags;
+	private List<String> tags;
 
 	public String getTitulo() {
 		return titulo;
@@ -47,7 +47,7 @@ public class TarefaCadastroDTO {
 		return situacao;
 	}
 
-	public List<Tag> getTags() {
+	public List<String> getTags() {
 		return tags;
 	}
 }

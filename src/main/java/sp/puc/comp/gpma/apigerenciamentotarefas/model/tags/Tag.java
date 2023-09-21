@@ -1,5 +1,6 @@
 package sp.puc.comp.gpma.apigerenciamentotarefas.model.tags;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,12 +13,18 @@ public class Tag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(unique = true)
 	private Long descricao;
+	
+	public Tag(Long descricao) {
+		this.descricao = descricao;
+	}
 	
 	public Long getId() {
 		return id;
 	}
 	public Long getDescricao() {
 		return descricao;
-	}
+	}	
 }

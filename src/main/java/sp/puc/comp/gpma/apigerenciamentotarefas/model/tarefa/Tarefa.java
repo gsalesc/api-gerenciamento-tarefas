@@ -2,7 +2,6 @@ package sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -43,6 +42,13 @@ public class Tarefa {
 	public Tarefa() {
 	}
 	
+	public Tarefa(String titulo, String descricao, LocalDateTime dataHora, Status situacao) {
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.dataHora = dataHora;
+		this.situacao = situacao;
+	}
+
 	public Tarefa(TarefaCadastroDTO dados) {
 		this.titulo = dados.getTitulo();
 		this.descricao = dados.getDescricao();

@@ -3,8 +3,6 @@ package sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
@@ -37,7 +35,13 @@ public class TarefaAtualizarDTO {
 	
 	private List<Tag> tags;
 	
-	
+	public TarefaAtualizarDTO(@NotNull @NotBlank Long id, @NotNull @Size(max = 50) String titulo, @NotNull @Size(max = 300) String descricao,
+			@NotNull LocalDateTime dataHora, @NotNull Status situacao) {
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.dataHora = dataHora;
+		this.situacao = situacao;
+	}
 
 	public Long getId() {
 		return id;
