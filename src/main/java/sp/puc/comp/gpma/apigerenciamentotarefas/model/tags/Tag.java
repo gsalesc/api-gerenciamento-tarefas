@@ -15,16 +15,19 @@ public class Tag {
 	private Long id;
 	
 	@Column(unique = true)
-	private Long descricao;
+	private String descricao;
 	
-	public Tag(Long descricao) {
+	public Tag() {
+	}
+	
+	public Tag(String descricao) {
 		this.descricao = descricao;
 	}
 	
 	public Long getId() {
 		return id;
 	}
-	public Long getDescricao() {
+	public String getDescricao() {
 		return descricao;
 	}	
 }

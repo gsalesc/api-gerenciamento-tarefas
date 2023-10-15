@@ -1,12 +1,16 @@
 package sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,11 +37,15 @@ public class Tarefa {
 	@Enumerated
 	private Status situacao;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tarefa_tag")
 	//unidirecional -> classe dominante: tarefa
 	//não queremos saber quais tarefa cada tag está ligada
 	private List<Tag> tags;
+	
+	
+	@CreationTimestamp
+	private LocalDateTime criadoEm;
 	
 	public Tarefa() {
 	}
@@ -47,6 +55,7 @@ public class Tarefa {
 		this.descricao = descricao;
 		this.dataHora = dataHora;
 		this.situacao = situacao;
+		this.tags = new ArrayList<Tag>();
 	}
 
 	public Tarefa(TarefaCadastroDTO dados) {
@@ -54,6 +63,7 @@ public class Tarefa {
 		this.descricao = dados.getDescricao();
 		this.dataHora = dados.getDataHora();
 		this.situacao = dados.getSituacao();
+		this.tags = new ArrayList<Tag>();
 	}
 
 	public Long getId() {
@@ -86,4 +96,5 @@ public class Tarefa {
 		this.dataHora = dados.getDataHora();
 		this.situacao = dados.getSituacao();
 	}
+	
 }

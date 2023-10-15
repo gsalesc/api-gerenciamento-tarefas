@@ -33,14 +33,18 @@ public class TarefaAtualizarDTO {
 	@NotNull
 	private Status situacao;
 	
-	private List<Tag> tags;
+	private List<String> tags;
+		
+	public TarefaAtualizarDTO() {
+	}
 	
 	public TarefaAtualizarDTO(@NotNull @NotBlank Long id, @NotNull @Size(max = 50) String titulo, @NotNull @Size(max = 300) String descricao,
-			@NotNull LocalDateTime dataHora, @NotNull Status situacao) {
+			@NotNull LocalDateTime dataHora, @NotNull Status situacao, List<String> tags) {
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataHora = dataHora;
 		this.situacao = situacao;
+		this.tags = tags;
 	}
 
 	public Long getId() {
@@ -63,7 +67,7 @@ public class TarefaAtualizarDTO {
 		return situacao;
 	}
 
-	public List<Tag> getTags() {
+	public List<String> getTags() {
 		return tags;
 	}
 }

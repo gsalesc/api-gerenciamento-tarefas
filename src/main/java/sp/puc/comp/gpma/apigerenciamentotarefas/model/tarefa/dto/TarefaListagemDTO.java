@@ -1,9 +1,12 @@
 package sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import sp.puc.comp.gpma.apigerenciamentotarefas.model.tags.Tag;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.Status;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.Tarefa;
 
@@ -19,6 +22,8 @@ public class TarefaListagemDTO {
 	
 	private Status situacao;
 	
+	private List<String> tags; 
+	
 	public TarefaListagemDTO() {
 	}
 	
@@ -28,6 +33,11 @@ public class TarefaListagemDTO {
 		this.descricao = tarefa.getDescricao();
 		this.dataHora = tarefa.getDataHora();
 		this.situacao = tarefa.getSituacao();
+		this.tags = new ArrayList<String>();
+		
+		for(Tag tags : tarefa.getTags()) {
+			this.tags.add(tags.getDescricao());
+		}
 	}
 	
 	public Long getId() {
@@ -48,5 +58,9 @@ public class TarefaListagemDTO {
 
 	public Status getSituacao() {
 		return situacao;
+	}
+	
+	public List<String> getTags(){
+		return tags;
 	}
 }

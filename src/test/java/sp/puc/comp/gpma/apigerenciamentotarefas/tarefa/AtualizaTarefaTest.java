@@ -1,8 +1,11 @@
 package sp.puc.comp.gpma.apigerenciamentotarefas.tarefa;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -32,7 +35,10 @@ public class AtualizaTarefaTest {
 		Assertions.assertThat(tarefaInserida).isNotNull();
 		Assertions.assertThat(tarefaInserida.getId()).isEqualTo(1L);
 		
-		TarefaAtualizarDTO tarefaAtualizada = new TarefaAtualizarDTO(1L, "teste atualizado", "teste descricao", data, Status.AGENDADO);
+		List<String> tags = new ArrayList<String>();
+		tags.add("daisjifd");
+		tags.add("asicj");
+		TarefaAtualizarDTO tarefaAtualizada = new TarefaAtualizarDTO(1L, "teste atualizado", "teste descricao", data, Status.AGENDADO, tags);
 		tarefaInserida.atualizar(tarefaAtualizada);
 		tarefaRepository.save(tarefaInserida);
 		
