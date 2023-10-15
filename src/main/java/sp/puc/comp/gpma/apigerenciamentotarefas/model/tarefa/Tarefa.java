@@ -3,11 +3,14 @@ package sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -43,7 +46,6 @@ public class Tarefa {
 	//não queremos saber quais tarefa cada tag está ligada
 	private List<Tag> tags;
 	
-	
 	@CreationTimestamp
 	private LocalDateTime criadoEm;
 	
@@ -65,6 +67,28 @@ public class Tarefa {
 		this.situacao = dados.getSituacao();
 		this.tags = new ArrayList<Tag>();
 	}
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(criadoEm, dataHora, descricao, id, situacao, tags, titulo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tarefa other = (Tarefa) obj;
+		return Objects.equals(criadoEm, other.criadoEm) && Objects.equals(dataHora, other.dataHora)
+				&& Objects.equals(descricao, other.descricao)
+				&& situacao == other.situacao && Objects.equals(tags, other.tags)
+				&& Objects.equals(titulo, other.titulo);
+	}
 
 	public Long getId() {
 		return id;
@@ -81,6 +105,10 @@ public class Tarefa {
 	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
+	
+	public void setSituacao(Status situacao) {
+		this.situacao = situacao;
+	}
 
 	public Status getSituacao() {
 		return situacao;
@@ -89,12 +117,15 @@ public class Tarefa {
 	public List<Tag> getTags() {
 		return tags;
 	}
+	
+	public LocalDateTime getCriadoEm() {
+		return criadoEm;
+	}
 
 	public void atualizar(TarefaAtualizarDTO dados) {
 		this.titulo = dados.getTitulo();
 		this.descricao = dados.getDescricao();
 		this.dataHora = dados.getDataHora();
 		this.situacao = dados.getSituacao();
-	}
-	
+	}	
 }

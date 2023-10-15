@@ -55,9 +55,9 @@ public class TarefaController {
 		return tarefaRepository.findAll().stream().map(TarefaListagemDTO::new).toList();
 	}
 	
-	@PutMapping
-	private void atualizarTarefa(@RequestBody TarefaAtualizarDTO dados) {
-		Tarefa tarefa = tarefaRepository.findById(dados.getId()).get();
+	@PutMapping("/{id}")
+	private void atualizarTarefa(@PathVariable Long id, @RequestBody TarefaAtualizarDTO dados) {
+		Tarefa tarefa = tarefaRepository.findById(id).get();
 		tarefa.atualizar(dados);
 		
 		for(String tag : dados.getTags()) {

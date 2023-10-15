@@ -10,13 +10,19 @@ public class ListaAtualizarDTO {
 
 	@NotNull
 	@NotEmpty
-	@Size(max = 50)
-	private String titulo;
+	private Long id;
 	
 	@NotNull
 	@NotEmpty
+	@Size(max = 50)
+	private String titulo;
+
 	private List<Long> tarefas_id;
 	
+	
+	public Long getId() {
+		return id;
+	}
 	public String getTitulo() {
 		return titulo;
 	}

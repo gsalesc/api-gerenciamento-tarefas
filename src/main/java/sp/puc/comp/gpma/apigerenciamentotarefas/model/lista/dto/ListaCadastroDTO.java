@@ -7,18 +7,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class ListaCadastroDTO {
-
-	@NotNull
-	@NotEmpty
-	private Long id;
 	
 	@NotNull
 	@NotEmpty
 	@Size(max = 50)
 	private String titulo;
 	
-	@NotNull
-	@NotEmpty
 	private List<Long> tarefas_id;
 	
 	public String getTitulo() {

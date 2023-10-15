@@ -13,9 +13,6 @@ import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.Status;
 
 public class TarefaAtualizarDTO {
 	
-	
-	@NotNull
-	@NotBlank
 	private Long id;
 	
 	@NotNull
@@ -38,7 +35,7 @@ public class TarefaAtualizarDTO {
 	public TarefaAtualizarDTO() {
 	}
 	
-	public TarefaAtualizarDTO(@NotNull @NotBlank Long id, @NotNull @Size(max = 50) String titulo, @NotNull @Size(max = 300) String descricao,
+	public TarefaAtualizarDTO(@NotNull @Size(max = 50) String titulo, @NotNull @Size(max = 300) String descricao,
 			@NotNull LocalDateTime dataHora, @NotNull Status situacao, List<String> tags) {
 		this.titulo = titulo;
 		this.descricao = descricao;
