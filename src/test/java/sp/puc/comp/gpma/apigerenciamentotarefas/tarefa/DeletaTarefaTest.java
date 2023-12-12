@@ -28,7 +28,7 @@ public class DeletaTarefaTest {
 		List<Tarefa> tarefas = tarefaRepository.findAll();
 		int tamanhoInicial = tarefas.size();
 		
-		Tarefa tarefaInserida = tarefaRepository.findById(1L).get();
+		Tarefa tarefaInserida = tarefaRepository.findByTitulo("teste");
 		tarefaRepository.delete(tarefaInserida);
 		
 		tarefas = tarefaRepository.findAll();

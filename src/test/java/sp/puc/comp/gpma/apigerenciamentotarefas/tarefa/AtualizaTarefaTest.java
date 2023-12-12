@@ -38,7 +38,7 @@ public class AtualizaTarefaTest {
 		List<String> tags = new ArrayList<String>();
 		tags.add("daisjifd");
 		tags.add("asicj");
-		TarefaAtualizarDTO tarefaAtualizada = new TarefaAtualizarDTO(1L, "teste atualizado", "teste descricao", data, Status.AGENDADO, tags);
+		TarefaAtualizarDTO tarefaAtualizada = new TarefaAtualizarDTO("teste atualizado", "teste descricao", data, Status.AGENDADO, tags);
 		tarefaInserida.atualizar(tarefaAtualizada);
 		tarefaRepository.save(tarefaInserida);
 		

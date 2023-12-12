@@ -8,6 +8,9 @@ import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.Status;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.Tarefa;
 
 public class TarefaListaDTO {
+	
+	private Long id;
+	
 	private String titulo;
 	
 	private String descricao;
@@ -22,12 +25,16 @@ public class TarefaListaDTO {
 	}
 	
 	public TarefaListaDTO(Tarefa tarefa) {
+		this.id = tarefa.getId();
 		this.titulo = tarefa.getTitulo();
 		this.descricao = tarefa.getDescricao();
 		this.dataHora = tarefa.getDataHora();
 		this.situacao = tarefa.getSituacao();
 	}
 
+	public Long getId() {
+		return id;
+	}
 	public String getTitulo() {
 		return titulo;
 	}

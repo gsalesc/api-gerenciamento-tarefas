@@ -5,10 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import sp.puc.comp.gpma.apigerenciamentotarefas.model.tags.Tag;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.Status;
 
 public class TarefaAtualizarDTO {

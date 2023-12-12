@@ -24,8 +24,8 @@ public class TarefaListagemDTO {
 	
 	private List<String> tags; 
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-	private LocalDateTime criadoEm;
+	//@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	//private LocalDateTime criadoEm;
 	
 	public TarefaListagemDTO() {
 	}
@@ -67,7 +67,7 @@ public class TarefaListagemDTO {
 		return tags;
 	}
 
-	public LocalDateTime getCriadoEm() {
+	/*public LocalDateTime getCriadoEm() {
 		return criadoEm;
-	}
+	}*/
 }

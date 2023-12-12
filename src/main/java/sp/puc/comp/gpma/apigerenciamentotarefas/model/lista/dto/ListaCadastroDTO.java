@@ -15,6 +15,9 @@ public class ListaCadastroDTO {
 	
 	private List<Long> tarefas_id;
 	
+	public ListaCadastroDTO() {
+	}
+	
 	public String getTitulo() {
 		return titulo;
 	}

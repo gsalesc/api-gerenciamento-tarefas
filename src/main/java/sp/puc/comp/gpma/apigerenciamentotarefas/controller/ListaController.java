@@ -5,14 +5,17 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.lista.Lista;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.lista.dto.ListaCadastroDTO;
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.lista.dto.ListaListagemDTO;
@@ -20,9 +23,11 @@ import sp.puc.comp.gpma.apigerenciamentotarefas.model.lista.dto.ListaOperacaoTar
 import sp.puc.comp.gpma.apigerenciamentotarefas.model.tarefa.Tarefa;
 import sp.puc.comp.gpma.apigerenciamentotarefas.repository.ListaRepository;
 import sp.puc.comp.gpma.apigerenciamentotarefas.repository.TarefaRepository;
+import sp.puc.comp.gpma.apigerenciamentotarefas.service.lista.ListaService;
 
 @RestController
 @RequestMapping("/api/lista")
+@Tag(name = "Lista", description = "Operações para as listas")
 public class ListaController {
 	
 	@Autowired
@@ -31,43 +36,46 @@ public class ListaController {
 	@Autowired
 	private TarefaRepository tarefaRepository;
 	
+	@Autowired
+	private ListaService listaService;
+	
 	@PostMapping
-	public void adicionarLista(@RequestBody ListaCadastroDTO dados) {
-		Lista lista = new Lista(dados);		
-		listaRepository.save(lista);
+	public ResponseEntity<ListaListagemDTO> adicionarLista(@RequestBody ListaCadastroDTO dados) {
+		return ResponseEntity.ok(new ListaListagemDTO(listaService.adicionarLista(dados)));
 	}
 	
-	@PostMapping("/{id}")
-	public void adicionarTarefas(@PathVariable Long id, @RequestBody ListaOperacaoTarefaDTO dados) {
+	@PutMapping("/adicionarTarefa/{id}")
+	public ResponseEntity<ListaListagemDTO> adicionarTarefas(@PathVariable Long id, @RequestBody ListaOperacaoTarefaDTO dados) {
 	
 		Optional<Lista> op = listaRepository.findById(id);
-		
+		Lista lista = null; 
 		if(op.isPresent()) {
-			Lista lista = op.get();
-			
-			for(Long tarefa_id : dados.getTarefas_id()) {
-				if(tarefaRepository.existsById(tarefa_id)) {
-					Tarefa tarefa = tarefaRepository.findById(tarefa_id).get();
+			lista = op.get();
+				Long idTarefa = dados.getTarefas_id();
+				if(tarefaRepository.existsById(id)) {
+					Tarefa tarefa = tarefaRepository.findById(idTarefa).get();
 										
-					Tarefa repetida = getTarefaPorId(lista, tarefa_id);
+					Tarefa repetida = getTarefaPorId(lista, idTarefa);
 					
 					if(repetida == null) {
 						lista.getTarefas().add(tarefa);	
 						listaRepository.save(lista);
 					}
 				}
-			}
-		}
+			
+		} else {System.out.println("ksjcwevunerivrel");}
 		
+		return ResponseEntity.ok(new ListaListagemDTO(lista));
 	}
 	
-	@DeleteMapping("/{id}")
-	public void deletarTarefas(@PathVariable Long id, @RequestBody ListaOperacaoTarefaDTO dados) {
+	@PutMapping("/deletarTarefa/{id}")
+	public ResponseEntity<ListaListagemDTO> deletarTarefas(@PathVariable Long id, @RequestBody ListaOperacaoTarefaDTO dados) {
 		Optional<Lista> op = listaRepository.findById(id);
-		
+		Lista lista = null;
 		if(op.isPresent()) {
-			Lista lista = op.get();
-			for(Long tarefa_id : dados.getTarefas_id()) {
+			
+			lista = op.get();
+			Long tarefa_id = dados.getTarefas_id();
 				if(tarefaRepository.existsById(tarefa_id)) {
 					Tarefa tarefa = tarefaRepository.findById(id).get();
 					
@@ -80,9 +88,10 @@ public class ListaController {
 						listaRepository.save(lista);
 					}
 				}
-			}
+			
 		}
 		
+		return ResponseEntity.ok(new ListaListagemDTO(lista));
 	}
 	
 	private Tarefa getTarefaPorId(Lista lista, Long id) {
@@ -100,5 +109,13 @@ public class ListaController {
 	@GetMapping
 	public List<ListaListagemDTO> listarLista(){
 		return listaRepository.findAll().stream().map(ListaListagemDTO::new).toList();
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deletarLista(@PathVariable Long id){
+		Lista lista = listaRepository.findById(id).get();
+		listaRepository.delete(lista);
+		
+		return ResponseEntity.ok("Lista deletada");
 	}
 }
